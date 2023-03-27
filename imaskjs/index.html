@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Imaskjs - vanilla javascript imput mask</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/kube/6.5.2/css/kube.min.css">
+    <link rel="stylesheet" href="gh-pages/css/main.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1 class="title"><a href="/imaskjs">imask<sub>js</sub></a></h1>
+        <em>vanilla javascript input mask</em>
+      </div>
+      <nav class="breadcrumbs push-center">
+        <ul>
+          <li><a href="guide.html">guide</a></li>
+          <li><a href="https://github.com/uNmAnNeR/imaskjs/zipball/gh-pages">download</a></li>
+          <li><a href="https://github.com/uNmAnNeR/imaskjs">on Github</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="row gutters">
+        <div class="col col-6">
+          <h4>Features</h4>
+          <ul>
+            <li>get and set <em>value</em> and <em>unmasked value</em> easily</li>
+            <li>no external dependencies</li>
+            <li>show placeholder always or only when needed</li>
+            <li>unmasked value can contain fixed parts</li>
+            <li>optional input parts (greedy)</li>
+            <li>RegExp mask</li>
+            <li>Functional mask</li>
+            <li>Number mask (integer and decimal support)</li>
+            <li>Date mask (with various format support)</li>
+            <li>Supports all major browsers and IE11+ <span class="req">*<a href="guide.html#support-older">need older?</a></span></li>
+          </ul>
+          <h5>Further plans</h5>
+          <ul>
+            <li>jQuery/Angular/React/Vue plugin</li>
+            <li>on-the-fly/multimask</li>
+            <li>more unit tests</li>
+            <li>support RTL?</li>
+          </ul>
+        </div>
+
+        <div class="col col-6">
+          <form class="form">
+            <div class="form-item">
+              <label>RegExp (Russian postal code) <span class="desc">/^[1-6]\d{0,5}$/</span></label>
+              <input id="regexp-mask" type="text" value="">
+
+              <div class="toggle-panel">
+                <label for="regexp-mask-source" class="muted">source</label>
+                <input id="regexp-mask-source" type="checkbox">
+                <div class="toggle-panel-content">
+                  <pre><code>var regExpMask = new IMask(
+  document.getElementById('regexp-mask'),
+  {
+    mask: /^[1-6]\d{0,5}$/
+  });
+<a href="guide.html#common" class="learn-more">learn more</a></code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-item">
+              <label>Pattern (Phone) <span class="desc">+{7}(000)000-00-00</span></label>
+              <input id="phone-mask" type="text" value="">
+              <div class="unmasked-value desc">unmasked: <span id="phone-unmasked"></span><span id="phone-complete" class="example__complete"></span></div>
+              <div class="toggle-panel">
+                <label for="phone-mask-source" class="muted">source</label>
+                <input id="phone-mask-source" type="checkbox">
+                <div class="toggle-panel-content">
+                  <pre><code>var phoneMask = new IMask(
+  document.getElementById('phone-mask'), {
+  mask: '+{7}(000)000-00-00'
+});
+<a href="guide.html#pattern" class="learn-more">learn more</a></code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-item">
+              <label>Number <span class="desc">in range [-10000, 10000]</span></label>
+              <input id="number-mask" type="text" value="">
+              <div class="unmasked-value desc">number: <span id="number-value"></span></div>
+              <div class="toggle-panel">
+                <label for="number-mask-source" class="muted">source</label>
+                <input id="number-mask-source" type="checkbox">
+                <div class="toggle-panel-content">
+                  <pre><code>var numberMask = new IMask(
+  document.getElementById('number-mask'),
+  {
+    mask: Number,
+    min: -10000,
+    max: 10000,
+    thousandsSeparator: ' '
+  });
+<a href="guide.html#number" class="learn-more">learn more</a></code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-item">
+              <label>Date <span class="desc">'dd.mm.yyyy' in range [01.01.2000, 01.01.2020]</span></label>
+              <input id="date-mask" type="text" value="">
+              <div class="unmasked-value desc">date: <span id="date-value"></span></div>
+              <div class="toggle-panel">
+                <label for="date-mask-source" class="muted">source</label>
+                <input id="date-mask-source" type="checkbox">
+                <div class="toggle-panel-content">
+                  <pre><code>var dateMask = new IMask(
+  document.getElementById('date-mask'),
+  {
+    mask: Date,
+    min: new Date(2000, 0, 1),
+    max: new Date(2020, 0, 1),
+    placeholder: {lazy: false}
+  });
+<a href="guide.html#date" class="learn-more">learn more</a></code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-item">
+              <label>Multimask <span class="desc">phone or email</span></label>
+              <input id="multi-mask" type="text" value="COMMING..." disabled>
+              <div class="unmasked-value desc">unmasked: <span id="multi-unmasked">soon</span><span id="multi-complete" class="example__complete"></span></div>
+              <div class="toggle-panel">
+                <label for="multi-mask-source" class="muted">source</label>
+                <input id="multi-mask-source" type="checkbox">
+                <div class="toggle-panel-content">
+                  <pre><code>this is something interesting, yeah?</code></pre>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer class="text-center">
+      <nav class="breadcrumbs push-center">
+        <ul>
+          <li><span class="active">donate</span></li>
+          <li><a href="https://www.paypal.me/alexeykryazhev/5" target="_blank">$5</a></li>
+          <li><a href="https://www.paypal.me/alexeykryazhev/10" target="_blank">$10</a></li>
+          <li><a href="https://www.paypal.me/alexeykryazhev/20" target="_blank">$20</a></li>
+          <li><a href="https://www.paypal.me/alexeykryazhev/50" target="_blank">$50</a></li>
+          <li><span class="active">to support</span></li>
+        </ul>
+      </nav>
+      <span>by <a href="https://github.com/uNmAnNeR">@Alexey Kryazhev</a></span>
+    </footer>
+    <script src="dist/imask.js"></script>
+    <script type="text/javascript">
+      var phoneMask = new IMask(document.getElementById('phone-mask'), {
+        mask: '+{7}(000)000-00-00'
+      }).on('accept', function() {
+        document.getElementById('phone-complete').style.display = '';
+        document.getElementById('phone-unmasked').innerHTML = phoneMask.unmaskedValue;
+      }).on('complete', function() {
+        document.getElementById('phone-complete').style.display = 'inline-block';
+      });
+
+      var regExpMask = new IMask(document.getElementById('regexp-mask'), {
+        mask: /^[1-6]\d{0,5}$/
+      });
+
+      var numberMask = new IMask(document.getElementById('number-mask'), {
+        mask: Number,
+        min: -10000,
+        max: 10000,
+        thousandsSeparator: ' '
+      });
+      numberMask.on('accept', function() {
+        document.getElementById('number-value').innerHTML = numberMask.masked.number;
+      });
+
+      var dateMask = new IMask(
+        document.getElementById('date-mask'),
+        {
+          mask: Date,
+          min: new Date(2000, 0, 1),
+          max: new Date(2020, 0, 1),
+          placeholder: {lazy: false}
+        });
+      dateMask.on('accept', function() {
+        document.getElementById('date-value').innerHTML = dateMask.masked.date || '-';
+      });
+
+    </script>
+  </body>
+</html>
